@@ -58,3 +58,11 @@ Sprint 4：体验、性能、移动端与长期维护。
 2. Sprint 1 使用只读示例仓库呈现完整信息架构；上传页明确标记为工作流骨架。Sprint 2 再接入写入能力，避免用临时浏览器存储制造未来迁移成本。
 3. 页面默认采用服务端组件；只有搜索筛选和上传交互需要客户端状态，降低首屏 JavaScript 与维护成本。
 4. 路由与数据访问解耦，Sprint 2/3 可将示例仓库替换为数据库与对象存储，而不重写页面结构。
+# 2026-07-12 Admin Access Update
+
+- [done] Public visitors can open Home, Archive, and Item pages without login.
+- [done] `/admin` is the only administrator entry and redirects anonymous admins to sign in.
+- [done] Signed-in users who are not `ADMIN_EMAIL` remain blocked from admin pages and write APIs.
+- [done] Public navigation hides the admin entry to avoid sending ordinary visitors into login.
+
+Impact: `app/admin-auth.ts`, `app/admin/**`, `components/site-nav.tsx`, `app/layout.tsx`.
