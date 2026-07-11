@@ -1,1 +1,1 @@
-import{AdminManager}from"@/components/admin-manager";export const metadata={title:"Admin"};export default function Admin(){return <main className="shell page"><AdminManager/></main>}
+import{AdminManager}from"@/components/admin-manager";import{requireChatGPTUser}from"@/app/chatgpt-auth";export const metadata={title:"Admin"};export const dynamic="force-dynamic";export default async function Admin(){await requireChatGPTUser("/admin");return <main className="shell page"><AdminManager/></main>}

@@ -17,6 +17,7 @@ const SIGN_OUT_PATH = "/signout-with-chatgpt";
 const CALLBACK_PATH = "/callback";
 
 export async function getChatGPTUser(): Promise<ChatGPTUser | null> {
+  if (process.env.NODE_ENV === "development") return { displayName: "Local Admin", email: "local@leeming.dev", fullName: "Local Admin" };
   const requestHeaders = await headers();
   const email = requestHeaders.get(USER_EMAIL_HEADER);
   if (!email) return null;

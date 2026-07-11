@@ -1,6 +1,7 @@
 import { desc, eq, like, or } from "drizzle-orm";
 import { ensureResourcesTable, getDb } from "@/db";
 import { resources } from "@/db/schema";
+import { getChatGPTUser } from "@/app/chatgpt-auth";
 
 function clean(value: unknown) { return typeof value === "string" ? value.trim() : ""; }
 function slugify(value: string) { return value.toLowerCase().normalize("NFKD").replace(/[^a-z0-9\s-]/g, "").trim().replace(/\s+/g, "-").replace(/-+/g, "-"); }
@@ -14,6 +15,7 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
+  if (!(await getChatGPTUser())) return Response.json({ error: "需要管理员登录" }, { status: 401 });
   await ensureResourcesTable();
   const body = await request.json() as Record<string, unknown>;
   const name = clean(body.name); const why = clean(body.why); const category = clean(body.category); const sourceUrl = clean(body.sourceUrl);
