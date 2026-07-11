@@ -4,6 +4,11 @@
 
 Sprint 1：建立可部署、可持续扩展的产品骨架。
 
+### GitHub 接入
+
+- [进行中] 连接 `ming0628-4/LEEMING` 仓库并推送 `main` 分支。
+- [待办] 排除本地部署打包产物，保持仓库内容干净。
+
 ## 本轮待办
 
 - [完成] 初始化 Next.js、TypeScript、Tailwind CSS 与 Git 仓库。

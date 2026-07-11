@@ -32,6 +32,8 @@ yarn-error.log*
 .env*
 .dev-stdout.log
 .dev-stderr.log
+.site-package/
+leeming-sites.tar.gz
 
 # vercel
 .vercel
