@@ -1,11 +1,12 @@
 import { desc, eq, like, or } from "drizzle-orm";
-import { getDb } from "@/db";
+import { ensureResourcesTable, getDb } from "@/db";
 import { resources } from "@/db/schema";
 
 function clean(value: unknown) { return typeof value === "string" ? value.trim() : ""; }
 function slugify(value: string) { return value.toLowerCase().normalize("NFKD").replace(/[^a-z0-9\s-]/g, "").trim().replace(/\s+/g, "-").replace(/-+/g, "-"); }
 
 export async function GET(request: Request) {
+  await ensureResourcesTable();
   const q = new URL(request.url).searchParams.get("q")?.trim() ?? "";
   const db = getDb();
   const rows = q ? await db.select().from(resources).where(or(like(resources.name, `%${q}%`), like(resources.description, `%${q}%`), like(resources.tags, `%${q}%`))).orderBy(desc(resources.updatedAt)) : await db.select().from(resources).orderBy(desc(resources.updatedAt));
@@ -13,6 +14,7 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
+  await ensureResourcesTable();
   const body = await request.json() as Record<string, unknown>;
   const name = clean(body.name); const why = clean(body.why); const category = clean(body.category); const sourceUrl = clean(body.sourceUrl);
   if (!name || !why || !category || !sourceUrl) return Response.json({ error: "名称、保留理由、分类和来源链接不能为空" }, { status: 400 });

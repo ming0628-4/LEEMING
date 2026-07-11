@@ -1,0 +1,1 @@
+import Link from"next/link";import{EditResourceForm}from"@/components/edit-resource-form";export default async function Edit({params}:{params:Promise<{id:string}>}){const{id}=await params;return <main className="shell page narrow"><Link className="back" href="/admin">← 返回管理</Link><p className="eyebrow">EDIT RESOURCE</p><h1>编辑资源</h1><EditResourceForm id={id}/></main>}
