@@ -4,5 +4,5 @@ test("所有管理页面执行唯一管理员校验",async()=>{for(const file of
 test("所有写入接口执行唯一管理员校验",async()=>{for(const file of["app/api/resources/route.ts","app/api/resources/[id]/route.ts","app/api/files/route.ts","app/api/files/[...key]/route.ts"])assert.match(await read(file),/getLeemingAdmin/)});
 test("D1 与 R2 部署声明和迁移齐全",async()=>{const hosting=JSON.parse(await read(".openai/hosting.json"));assert.equal(hosting.d1,"DB");assert.equal(hosting.r2,"ARCHIVE");await Promise.all([access(new URL("../drizzle/0000_opposite_alice.sql",import.meta.url)),access(new URL("../drizzle/0002_add_object_key.sql",import.meta.url))])});
 
-test("admin pages redirect anonymous users to sign in",async()=>{const source=await read("app/admin-auth.ts");assert.match(source,/chatGPTSignInPath/);assert.match(source,/redirect\(chatGPTSignInPath\(returnTo\)\)/);assert.match(source,/notFound\(\)/)});
+test("admin pages use LEEMING password session instead of ChatGPT login",async()=>{const source=await read("app/admin-auth.ts");assert.match(source,/ADMIN_SESSION_COOKIE/);assert.match(source,/adminLoginPath/);assert.doesNotMatch(source,/chatGPTSignInPath|signin-with-chatgpt|getChatGPTUser/)});
 test("public navigation does not expose admin login",async()=>{const source=await read("components/site-nav.tsx");assert.doesNotMatch(source,/href:"\/admin"/);assert.doesNotMatch(source,/label:"Admin"/)});

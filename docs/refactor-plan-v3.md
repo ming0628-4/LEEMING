@@ -1,3 +1,13 @@
+# 2026-07-12 Mainland Admin Login
+
+- [done] Replace ChatGPT-based admin login with LEEMING-owned password login.
+- [done] Store admin password and session secret only in runtime environment variables.
+- [done] Protect admin pages and write APIs with a signed HttpOnly session cookie.
+- [done] Add admin login and logout routes without changing public browsing.
+- [in-progress] Validate build/tests and deploy the updated production version.
+
+Impact: `app/admin-auth.ts`, `app/admin/login/page.tsx`, `app/api/admin/**`, `components/admin-manager.tsx`, `tests/architecture.test.mjs`.
+
 # 2026-07-12 Visual Audit Follow-up
 
 - [done] Replace remaining card-level English status text such as `External`.

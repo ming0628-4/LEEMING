@@ -568,6 +568,24 @@ th {
   padding: 28px;
 }
 
+.admin-login-form {
+  display: grid;
+  gap: 18px;
+  max-width: 520px;
+  margin-top: 34px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--card);
+  padding: 26px;
+}
+
+.admin-login-form label {
+  display: grid;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
 .dropzone {
   border: 1px dashed #aab4ad;
   border-radius: 12px;
@@ -608,13 +626,19 @@ th {
 }
 
 .form-actions,
-.table-actions {
+.table-actions,
+.admin-actions {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
 .form-actions {
+  justify-content: flex-end;
+}
+
+.admin-actions {
+  flex-wrap: wrap;
   justify-content: flex-end;
 }
 
