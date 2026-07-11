@@ -1,3 +1,12 @@
+# 2026-07-12 Public Interface Redesign
+
+- [done] Redesign the public home page as a usable archive entry instead of a marketing-style hero.
+- [done] Repair visible Chinese copy on public pages and cards.
+- [done] Keep the existing data, admin, upload, and deployment architecture unchanged.
+- [done] Validate build and architecture tests before publishing.
+
+Impact: `app/page.tsx`, `app/archive/page.tsx`, `components/resource-card.tsx`, `app/globals.css`.
+
 # LEEMING 开发计划
 
 ## 当前阶段
