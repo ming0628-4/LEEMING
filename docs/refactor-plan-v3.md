@@ -1,3 +1,11 @@
+# 2026-07-12 Visual Audit Follow-up
+
+- [done] Replace remaining card-level English status text such as `External`.
+- [done] Replace icon-only resource card action with a Chinese text action.
+- [done] Rebuild, test, and publish after the audit fixes.
+
+Impact: `app/page.tsx`, `app/archive/page.tsx`, `components/resource-card.tsx`.
+
 # 2026-07-12 Interface Language Pass
 
 - [done] Keep brand and atmosphere labels refined, including `LEEMING` and `Personal Digital Archive`.

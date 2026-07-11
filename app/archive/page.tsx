@@ -5,7 +5,7 @@ import { listCategories, listResources } from "@/lib/resource-repository";
 export const metadata = { title: "资源库" };
 
 function formatSize(size: number | null) {
-  if (!size) return "External";
+  if (!size) return "外部链接";
   if (size < 1048576) return `${Math.max(1, Math.round(size / 1024))} KB`;
   return `${(size / 1048576).toFixed(1)} MB`;
 }
