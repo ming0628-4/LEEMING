@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { SiteNav } from "@/components/site-nav";
 
 const sans = Geist({ variable: "--font-sans", subsets: ["latin"] });
 const mono = Geist_Mono({ variable: "--font-mono", subsets: ["latin"] });
@@ -10,7 +11,7 @@ export const metadata: Metadata = { title: { default: "LEEMING — Personal Digi
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return <html lang="zh-CN"><body className={`${sans.variable} ${mono.variable}`}>
-    <header className="site-header"><div className="shell nav"><Link className="brand" href="/">LEE<span>MING</span></Link><nav aria-label="主导航"><Link href="/archive">Archive</Link><Link href="/archive">Search</Link><Link href="/admin">Admin</Link></nav></div></header>
+    <header className="site-header"><div className="shell nav"><Link className="brand" href="/">LEE<span>MING</span></Link><SiteNav /></div></header>
     {children}
     <footer><div className="shell footer-inner"><strong>LEEMING</strong><p>Collect · Organize · Retrieve · Maintain</p><span>Built for the future me.</span></div></footer>
   </body></html>;
