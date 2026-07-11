@@ -4,7 +4,7 @@
 - [done] Store admin password and session secret only in runtime environment variables.
 - [done] Protect admin pages and write APIs with a signed HttpOnly session cookie.
 - [done] Add admin login and logout routes without changing public browsing.
-- [in-progress] Validate build/tests and deploy the updated production version.
+- [done] Validate build/tests and deploy the updated production version.
 
 Impact: `app/admin-auth.ts`, `app/admin/login/page.tsx`, `app/api/admin/**`, `components/admin-manager.tsx`, `tests/architecture.test.mjs`.
 
