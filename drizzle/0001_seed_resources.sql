@@ -1,0 +1,1 @@
+INSERT OR IGNORE INTO resources (slug,name,version,category,tags,file_type,description,why,source_url,status) VALUES ('everything','Everything','1.4.1','效率工具','["Windows","文件搜索","必装"]','EXE','瞬间定位 Windows 中的文件和文件夹。','系统原生搜索无法承担高频文件定位。它体积小、稳定，是每次配置新电脑最先安装的工具之一。','https://www.voidtools.com/','published');
