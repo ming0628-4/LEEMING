@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ResourceCard } from "@/components/resource-card";
 import { listCategories, listResources } from "@/lib/resource-repository";
 
-export const metadata = { title: "Archive" };
+export const metadata = { title: "资源库" };
 
 function formatSize(size: number | null) {
   if (!size) return "External";

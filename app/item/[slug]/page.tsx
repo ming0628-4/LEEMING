@@ -1,2 +1,71 @@
-import Link from"next/link";import{notFound}from"next/navigation";import{findResource}from"@/lib/resource-repository";
-export default async function Item({params}:{params:Promise<{slug:string}>}){const item=await findResource((await params).slug);if(!item)notFound();return <main className="shell item-page"><Link className="back" href="/archive">← 返回 Archive</Link><div className="item-grid"><section><div className="item-heading"><span className="file-badge large">{item.fileType}</span><div><p className="category">{item.category}</p><h1>{item.name}</h1><p>Version {item.version}</p></div></div><p className="item-description">{item.description}</p><div className="why"><p className="eyebrow">WHY I KEEP IT</p><h2>为什么保留</h2><p>{item.why}</p></div></section><aside className="item-aside"><dl><div><dt>文件大小</dt><dd>{item.fileSize?`${(item.fileSize/1048576).toFixed(2)} MB`:"外部链接"}</dd></div><div><dt>SHA256</dt><dd>{item.sha256?`${item.sha256.slice(0,12)}…`:"—"}</dd></div><div><dt>最后更新</dt><dd>{item.updatedAt}</dd></div></dl><a className="primary-button" href={item.sourceUrl} target="_blank" rel="noreferrer">获取资源 ↗</a></aside></div><div className="tags">{item.tags.map(t=><span key={t}>{t}</span>)}</div></main>}
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { findResource } from "@/lib/resource-repository";
+
+export default async function Item({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const item = await findResource((await params).slug);
+  if (!item) notFound();
+
+  return (
+    <main className="shell item-page">
+      <Link className="back" href="/archive">
+        ← 返回资源库
+      </Link>
+      <div className="item-grid">
+        <section>
+          <div className="item-heading">
+            <span className="file-badge large">{item.fileType}</span>
+            <div>
+              <p className="category">{item.category}</p>
+              <h1>{item.name}</h1>
+              <p>版本 {item.version || "未标注"}</p>
+            </div>
+          </div>
+          <p className="item-description">{item.description}</p>
+          <div className="why">
+            <p className="eyebrow">Keep Reason</p>
+            <h2>为什么保留</h2>
+            <p>{item.why}</p>
+          </div>
+        </section>
+        <aside className="item-aside">
+          <dl>
+            <div>
+              <dt>文件大小</dt>
+              <dd>
+                {item.fileSize
+                  ? `${(item.fileSize / 1048576).toFixed(2)} MB`
+                  : "外部链接"}
+              </dd>
+            </div>
+            <div>
+              <dt>SHA256</dt>
+              <dd>{item.sha256 ? `${item.sha256.slice(0, 12)}...` : "未记录"}</dd>
+            </div>
+            <div>
+              <dt>最后更新</dt>
+              <dd>{item.updatedAt}</dd>
+            </div>
+          </dl>
+          <a
+            className="primary-button"
+            href={item.sourceUrl}
+            target="_blank"
+            rel="noreferrer"
+          >
+            获取资源
+          </a>
+        </aside>
+      </div>
+      <div className="tags">
+        {item.tags.map((tag) => (
+          <span key={tag}>{tag}</span>
+        ))}
+      </div>
+    </main>
+  );
+}

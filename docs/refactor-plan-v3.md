@@ -1,3 +1,12 @@
+# 2026-07-12 Interface Language Pass
+
+- [done] Keep brand and atmosphere labels refined, including `LEEMING` and `Personal Digital Archive`.
+- [done] Convert functional navigation, buttons, links, and form actions to Chinese.
+- [done] Keep public browsing and admin permission behavior unchanged.
+- [done] Validate build and tests, then publish.
+
+Impact: `components/site-nav.tsx`, `app/page.tsx`, `app/archive/page.tsx`, `app/item/[slug]/page.tsx`, `app/not-found.tsx`, `app/loading.tsx`, `components/resource-card.tsx`.
+
 # 2026-07-12 Public Interface Redesign
 
 - [done] Redesign the public home page as a usable archive entry instead of a marketing-style hero.

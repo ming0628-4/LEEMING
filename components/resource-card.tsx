@@ -20,7 +20,7 @@ export function ResourceCard({ resource }: { resource: Resource }) {
       </div>
       <div className="card-bottom">
         <span>
-          v{resource.version} · {resource.size}
+          版本 {resource.version} · {resource.size}
         </span>
         <Link href={`/item/${resource.slug}`} aria-label={`查看 ${resource.name}`}>
           →

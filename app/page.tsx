@@ -46,18 +46,18 @@ export default async function Home() {
           </div>
           <aside className="home-panel" aria-label="资料库状态">
             <div>
-              <span>Resources</span>
+              <span>资源</span>
               <strong>{resources.length}</strong>
             </div>
             <div>
-              <span>Categories</span>
+              <span>分类</span>
               <strong>{categoryCount}</strong>
             </div>
             <div>
-              <span>Latest</span>
+              <span>最近更新</span>
               <strong>{lastUpdated}</strong>
             </div>
-            <Link href="/archive">进入 Archive</Link>
+            <Link href="/archive">进入资源库</Link>
           </aside>
         </div>
       </section>
@@ -68,7 +68,7 @@ export default async function Home() {
             <p className="eyebrow">Recently Kept</p>
             <h2>最近保留</h2>
           </div>
-          <Link href="/archive">查看全部</Link>
+          <Link href="/archive">查看全部资源</Link>
         </div>
         <div className="resource-grid compact-grid">
           {latest.map((resource) => (
