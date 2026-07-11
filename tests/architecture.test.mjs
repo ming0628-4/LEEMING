@@ -1,0 +1,6 @@
+import assert from"node:assert/strict";import{readFile,access}from"node:fs/promises";import test from"node:test";
+const read=(path)=>readFile(new URL(`../${path}`,import.meta.url),"utf8");
+test("公开页面统一使用 D1 仓库",async()=>{const[home,archive,item]=await Promise.all([read("app/page.tsx"),read("app/archive/page.tsx"),read("app/item/[slug]/page.tsx")]);assert.match(home,/listResources/);assert.match(archive,/listResources/);assert.match(item,/findResource/);for(const source of[home,archive,item])assert.doesNotMatch(source,/lib\/resources/)});
+test("所有管理页面执行服务端身份校验",async()=>{const files=["app/admin/page.tsx","app/admin/upload/page.tsx","app/admin/edit/[id]/page.tsx"];for(const file of files){const source=await read(file);assert.match(source,/requireChatGPTUser/);assert.match(source,/force-dynamic/)}});
+test("写入与文件上传接口执行身份校验",async()=>{for(const file of["app/api/resources/route.ts","app/api/resources/[id]/route.ts","app/api/files/route.ts"]){assert.match(await read(file),/getChatGPTUser/)}});
+test("D1 与 R2 部署声明和迁移齐全",async()=>{const hosting=JSON.parse(await read(".openai/hosting.json"));assert.equal(hosting.d1,"DB");assert.equal(hosting.r2,"ARCHIVE");await Promise.all([access(new URL("../drizzle/0000_opposite_alice.sql",import.meta.url)),access(new URL("../drizzle/0002_add_object_key.sql",import.meta.url))])});
