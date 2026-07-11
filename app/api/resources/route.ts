@@ -22,6 +22,6 @@ export async function POST(request: Request) {
   if (!name || !why || !category || !sourceUrl) return Response.json({ error: "名称、保留理由、分类和来源链接不能为空" }, { status: 400 });
   const tags = Array.isArray(body.tags) ? body.tags.map(clean).filter(Boolean) : clean(body.tags).split(",").map(v => v.trim()).filter(Boolean);
   const db = getDb();
-  try { const [resource] = await db.insert(resources).values({ slug: clean(body.slug) || slugify(name), name, why, category, sourceUrl, version: clean(body.version), description: clean(body.description), fileType: clean(body.fileType) || "LINK", fileName: clean(body.fileName) || null, fileSize: Number(body.fileSize) || null, sha256: clean(body.sha256) || null, tags: JSON.stringify(tags) }).returning(); return Response.json({ resource }, { status: 201 }); }
+  try { const [resource] = await db.insert(resources).values({ slug: clean(body.slug) || slugify(name), name, why, category, sourceUrl, version: clean(body.version), description: clean(body.description), fileType: clean(body.fileType) || "LINK", fileName: clean(body.fileName) || null, fileSize: Number(body.fileSize) || null, sha256: clean(body.sha256) || null, objectKey: clean(body.objectKey) || null, tags: JSON.stringify(tags) }).returning(); return Response.json({ resource }, { status: 201 }); }
   catch { return Response.json({ error: "资源标识已存在，请修改名称或 slug" }, { status: 409 }); }
 }

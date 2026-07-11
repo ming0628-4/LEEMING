@@ -12,6 +12,7 @@ export const resources = sqliteTable("resources", {
   fileName: text("file_name"),
   fileSize: integer("file_size"),
   sha256: text("sha256"),
+  objectKey: text("object_key"),
   description: text("description").notNull().default(""),
   why: text("why").notNull(),
   sourceUrl: text("source_url").notNull(),
