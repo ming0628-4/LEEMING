@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { ResourceCard } from "@/components/resource-card";
-import { categories, resources } from "@/lib/resources";
+import { listResources } from "@/lib/resource-repository";
 
-export default function Home() {
-  const latest = resources.slice(0, 3);
+export default async function Home() {
+  const stored = await listResources();
+  const latest = stored.slice(0, 3).map((resource) => ({ ...resource, size: resource.fileSize ? `${(resource.fileSize / 1048576).toFixed(1)} MB` : "External" }));
+  const categoryCount = new Set(stored.map((resource) => resource.category)).size;
   return (
     <main>
       <section className="hero shell">
@@ -15,7 +17,7 @@ export default function Home() {
           <input id="home-search" name="q" placeholder="搜索名称、用途或标签…" />
           <button type="submit">搜索 Archive</button>
         </form>
-        <div className="hero-meta"><span>{resources.length} 个资源</span><span>{categories.length} 个分类</span><span>持续维护中</span></div>
+        <div className="hero-meta"><span>{stored.length} 个资源</span><span>{categoryCount} 个分类</span><span>持续维护中</span></div>
       </section>
 
       <section className="shell section">
