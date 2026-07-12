@@ -1,3 +1,46 @@
+# 2026-07-12 Maintenance Cleanup
+
+- [done] Remove unused ChatGPT auth helper after password admin login replacement.
+- [done] Add a clean Chinese maintenance summary before the archived legacy mojibake section.
+- [done] Add small mobile layout refinements for tables, forms, and item headers.
+- [in-progress] Validate build/tests and deploy.
+
+Impact: `app/chatgpt-auth.ts`, `docs/refactor-plan-v3.md`, `app/globals.css`, `tests/architecture.test.mjs`.
+
+# LEEMING 当前维护摘要
+
+## 当前阶段
+
+Sprint 4：体验优化、后台维护能力、移动端适配和长期稳定性。
+
+## 已完成
+
+- Next.js + TypeScript + Tailwind CSS 基础架构。
+- Home / 资源库 / 详情页 / 管理后台 / 上传 / 编辑页面。
+- D1 资源数据库和 R2 文件存储。
+- 管理员密码登录，普通用户无需登录。
+- 上传、编辑、删除、搜索、分类筛选。
+- 可选操作教程，支持步骤、截图、视频和链接。
+- 自定义域名 `leeming.net.cn` 上线。
+- GitHub 仓库和 Sites 部署流程。
+- 架构回归测试。
+
+## 近期优先级
+
+- 移动端细调。
+- 教程素材替换/删除管理。
+- 资源导出和备份。
+- 后台批量管理。
+- 搜索能力增强。
+
+## 架构原则
+
+1. 前台公开可读，后台管理员可写。
+2. 首页和资源详情尽量使用服务端渲染，减少前台 JavaScript。
+3. 文件和教程素材统一进入 R2，元数据进入 D1。
+4. 每次迭代保持可构建、可部署、可回滚。
+5. 不为了炫技增加复杂度，优先稳定性和长期维护成本。
+
 # 2026-07-12 Admin Management Polish
 
 - [done] Fix remaining admin manager mojibake text.
