@@ -420,6 +420,12 @@ textarea:focus {
   color: var(--muted);
 }
 
+.success-state {
+  border-color: #c9dfcf;
+  background: #f3fbf5;
+  color: #24633a;
+}
+
 .back {
   display: inline-block;
   margin-bottom: 55px;

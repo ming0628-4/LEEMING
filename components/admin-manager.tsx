@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 type Row = {
   id: number;
@@ -23,22 +23,32 @@ function formatDate(value: string) {
 }
 
 export function AdminManager() {
+  const importInput = useRef<HTMLInputElement>(null);
   const [rows, setRows] = useState<Row[]>([]);
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  const [notice, setNotice] = useState("");
   const [query, setQuery] = useState("");
 
+  async function loadResources() {
+    setLoading(true);
+    setError("");
+    try {
+      const response = await fetch("/api/resources");
+      const payload = await response.json();
+      if (!response.ok) throw new Error(payload.error || "资源读取失败");
+      setRows(payload.resources);
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : "资源读取失败，请稍后重试。");
+    } finally {
+      setLoading(false);
+    }
+  }
+
   useEffect(() => {
-    fetch("/api/resources")
-      .then(async (response) => {
-        const payload = await response.json();
-        if (!response.ok) throw new Error(payload.error || "资源读取失败");
-        setRows(payload.resources);
-      })
-      .catch((reason) => setError(reason.message || "资源读取失败，请稍后重试。"))
-      .finally(() => setLoading(false));
+    void loadResources();
   }, []);
 
   const filteredRows = useMemo(() => {
@@ -97,6 +107,7 @@ export function AdminManager() {
 
     setBusy(true);
     setError("");
+    setNotice("");
     try {
       for (const id of ids) {
         const response = await fetch(`/api/resources/${id}`, { method: "DELETE" });
@@ -108,10 +119,38 @@ export function AdminManager() {
 
       setRows((current) => current.filter((item) => !ids.includes(item.id)));
       setSelectedIds((current) => current.filter((id) => !ids.includes(id)));
+      setNotice(`已删除 ${ids.length} 个资源。`);
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "删除失败，请刷新后重试。");
     } finally {
       setBusy(false);
+    }
+  }
+
+  async function importBackup(file?: File) {
+    if (!file || busy) return;
+    if (!confirm("确认导入这个备份文件？同 slug 的资源会被更新，不会清空现有资源。")) return;
+
+    setBusy(true);
+    setError("");
+    setNotice("");
+    try {
+      const payload = JSON.parse(await file.text());
+      const response = await fetch("/api/resources/import", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || "导入失败，请检查备份文件。");
+
+      setNotice(`导入完成：${result.imported} 条成功，${result.skipped} 条跳过。`);
+      await loadResources();
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : "导入失败，请检查备份文件。");
+    } finally {
+      setBusy(false);
+      if (importInput.current) importInput.current.value = "";
     }
   }
 
@@ -132,6 +171,16 @@ export function AdminManager() {
           <a className="secondary-button" href="/api/resources/export">
             导出备份
           </a>
+          <button className="secondary-button" type="button" disabled={busy} onClick={() => importInput.current?.click()}>
+            导入备份
+          </button>
+          <input
+            ref={importInput}
+            className="sr-only"
+            type="file"
+            accept="application/json,.json"
+            onChange={(event) => importBackup(event.target.files?.[0])}
+          />
           <form action="/api/admin/logout" method="post">
             <button className="secondary-button" type="submit">
               退出登录
@@ -145,6 +194,7 @@ export function AdminManager() {
           {error}
         </div>
       ) : null}
+      {notice ? <div className="empty success-state">{notice}</div> : null}
 
       <div className="admin-stats">
         <div>

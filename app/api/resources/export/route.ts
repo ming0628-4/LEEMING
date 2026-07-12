@@ -1,5 +1,5 @@
-import { listResources } from "@/lib/resource-repository";
 import { getLeemingAdmin } from "@/app/admin-auth";
+import { listResources } from "@/lib/resource-repository";
 
 export const dynamic = "force-dynamic";
 

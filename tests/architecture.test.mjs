@@ -95,6 +95,17 @@ test("admin resource backup export is administrator-only and visible", async () 
   assert.match(manager, /\/api\/resources\/export/);
 });
 
+test("admin resource backup import is administrator-only and visible", async () => {
+  const route = await read("app/api/resources/import/route.ts");
+  assert.match(route, /getLeemingAdmin/);
+  assert.match(route, /onConflictDoUpdate/);
+  assert.match(route, /备份文件中没有可导入的资源/);
+  const manager = await read("components/admin-manager.tsx");
+  assert.match(manager, /导入备份/);
+  assert.match(manager, /\/api\/resources\/import/);
+  assert.doesNotMatch(manager, /[�锛鍒犵绠璧鎼]/);
+});
+
 test("tutorial editor supports readable media replacement flow", async () => {
   const source = await read("components/tutorial-editor.tsx");
   assert.match(source, /操作教程（可选）/);

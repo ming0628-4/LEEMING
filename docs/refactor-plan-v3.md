@@ -1,3 +1,13 @@
+# 2026-07-12 Backup Import Restore
+
+- [done] Add administrator-only JSON backup import endpoint with slug-based upsert.
+- [done] Add admin console import control for previously exported LEEMING backup files.
+- [done] Repair remaining mojibake in resource create/export API responses.
+- [done] Add regression coverage for backup import permissions and readable copy.
+- [in-progress] Validate build/tests and deploy.
+
+Impact: `app/api/resources/import/route.ts`, `app/api/resources/route.ts`, `app/api/resources/export/route.ts`, `components/admin-manager.tsx`, `tests/architecture.test.mjs`.
+
 # 2026-07-12 Storage Cleanup On Delete
 
 - [done] Delete the primary R2 object when an admin deletes a resource with `objectKey`.
