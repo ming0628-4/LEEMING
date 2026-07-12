@@ -3,7 +3,7 @@
 - [done] Repair remaining mojibake copy in the admin manager.
 - [done] Add checkbox selection and batch delete using the existing resource delete API.
 - [done] Add regression coverage for readable admin batch management copy.
-- [in-progress] Validate build/tests and deploy.
+- [done] Validate build/tests and deploy.
 
 Impact: `components/admin-manager.tsx`, `app/globals.css`, `tests/architecture.test.mjs`.
 
