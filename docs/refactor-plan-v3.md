@@ -3,7 +3,7 @@
 - [done] Fix remaining admin manager mojibake text.
 - [done] Add local admin search for resource management.
 - [done] Improve admin table empty states and actions.
-- [in-progress] Validate build/tests and deploy.
+- [done] Validate build/tests and deploy.
 
 Impact: `components/admin-manager.tsx`, `app/globals.css`.
 
