@@ -31,6 +31,8 @@ export function AdminManager() {
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
   const [query, setQuery] = useState("");
+  const [tutorialFilter, setTutorialFilter] = useState<"all" | "with" | "without">("all");
+  const [categoryFilter, setCategoryFilter] = useState("all");
 
   async function loadResources() {
     setLoading(true);
@@ -53,14 +55,23 @@ export function AdminManager() {
 
   const filteredRows = useMemo(() => {
     const keyword = query.trim().toLowerCase();
-    if (!keyword) return rows;
     return rows.filter((row) =>
-      [row.name, row.category, row.version, row.status, ...(row.tags ?? [])]
-        .join(" ")
-        .toLowerCase()
-        .includes(keyword),
+      (tutorialFilter === "all" ||
+        (tutorialFilter === "with" && Boolean(row.tutorial?.length)) ||
+        (tutorialFilter === "without" && !row.tutorial?.length)) &&
+      (categoryFilter === "all" || row.category === categoryFilter) &&
+      (!keyword ||
+        [row.name, row.category, row.version, row.status, ...(row.tags ?? [])]
+          .join(" ")
+          .toLowerCase()
+          .includes(keyword)),
     );
-  }, [query, rows]);
+  }, [categoryFilter, query, rows, tutorialFilter]);
+
+  const categories = useMemo(
+    () => Array.from(new Set(rows.map((row) => row.category).filter(Boolean))).sort(),
+    [rows],
+  );
 
   const filteredIds = useMemo(() => filteredRows.map((row) => row.id), [filteredRows]);
   const selectedVisibleCount = selectedIds.filter((id) => filteredIds.includes(id)).length;
@@ -236,6 +247,28 @@ export function AdminManager() {
             onChange={(event) => setQuery(event.target.value)}
             placeholder="输入名称、分类、版本或标签"
           />
+        </label>
+        <label>
+          <span>教程状态</span>
+          <select
+            value={tutorialFilter}
+            onChange={(event) => setTutorialFilter(event.target.value as "all" | "with" | "without")}
+          >
+            <option value="all">全部资源</option>
+            <option value="with">有教程</option>
+            <option value="without">无教程</option>
+          </select>
+        </label>
+        <label>
+          <span>资源分类</span>
+          <select value={categoryFilter} onChange={(event) => setCategoryFilter(event.target.value)}>
+            <option value="all">全部分类</option>
+            {categories.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
         </label>
         <span>
           当前显示 {filteredRows.length} / {rows.length}
