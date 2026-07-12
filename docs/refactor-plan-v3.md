@@ -3,7 +3,7 @@
 - [done] Delete the primary R2 object when an admin deletes a resource with `objectKey`.
 - [done] Repair remaining mojibake in file API error messages and resource delete responses.
 - [done] Add regression coverage for storage cleanup and readable file API copy.
-- [in-progress] Validate build/tests and deploy.
+- [done] Validate build/tests and deploy.
 
 Impact: `app/api/resources/[id]/route.ts`, `app/api/files/route.ts`, `app/api/files/[...key]/route.ts`, `tests/architecture.test.mjs`.
 
