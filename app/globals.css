@@ -661,7 +661,7 @@ dd {
 
 .admin-stats {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 14px;
   margin: 34px 0;
 }
@@ -824,6 +824,10 @@ th {
   background: #fff5f3;
   color: var(--danger);
   padding: 7px 11px;
+}
+
+.muted-link {
+  color: var(--muted);
 }
 
 .form-error {
