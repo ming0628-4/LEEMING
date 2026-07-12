@@ -135,10 +135,10 @@ Impact: `components/upload-form.tsx`, `components/edit-resource-form.tsx`, `app/
 
 # 2026-07-13 Admin Public Link Copy
 
-- [in-progress] Add a one-click public link copy action in the admin resource table.
-- [in-progress] Keep ordinary visitors unaffected and preserve the current public routes.
-- [in-progress] Add regression coverage for the admin link copy UI.
-- [in-progress] Validate tests, commit, push, and publish the updated site.
+- [done] Add a one-click public link copy action in the admin resource table.
+- [done] Keep ordinary visitors unaffected and preserve the current public routes.
+- [done] Add regression coverage for the admin link copy UI.
+- [done] Validate tests, commit, push, and publish the updated site.
 
 Impact: `components/admin-manager.tsx`, `tests/architecture.test.mjs`.
 
