@@ -3,7 +3,7 @@
 - [done] Repair remaining mojibake copy on the home page and public navigation.
 - [done] Repair upload and edit form Chinese copy and error messages.
 - [done] Add regression coverage for readable home/form copy.
-- [in-progress] Validate build/tests and deploy after GitHub/Sites sync.
+- [done] Validate build/tests and deploy after GitHub/Sites sync.
 
 Impact: `app/page.tsx`, `components/site-nav.tsx`, `components/upload-form.tsx`, `components/edit-resource-form.tsx`, `tests/architecture.test.mjs`.
 
