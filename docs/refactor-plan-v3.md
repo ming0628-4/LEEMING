@@ -135,10 +135,10 @@ Impact: `components/upload-form.tsx`, `components/edit-resource-form.tsx`, `app/
 
 # 2026-07-13 Admin Sort Controls
 
-- [in-progress] Add admin sorting for recently updated resources, resource name, and category.
-- [in-progress] Keep sorting compatible with search, tutorial filters, category filters, and batch selection.
-- [in-progress] Add regression coverage for the admin sort UI.
-- [in-progress] Validate tests, commit, push, and publish the updated site.
+- [done] Add admin sorting for recently updated resources, resource name, and category.
+- [done] Keep sorting compatible with search, tutorial filters, category filters, and batch selection.
+- [done] Add regression coverage for the admin sort UI.
+- [done] Validate tests, commit, push, and publish the updated site.
 
 Impact: `components/admin-manager.tsx`, `tests/architecture.test.mjs`.
 
