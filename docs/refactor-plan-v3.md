@@ -4,7 +4,7 @@
 - [done] Allow each tutorial step to upload screenshot/video files through the existing R2 file API.
 - [done] Auto-fill tutorial media URL after upload and keep manual URL editing available.
 - [done] Improve tutorial editor layout so long forms stay readable.
-- [in-progress] Validate build/tests and deploy.
+- [done] Validate build/tests and deploy.
 
 Impact: `components/upload-form.tsx`, `components/edit-resource-form.tsx`, `app/globals.css`.
 
