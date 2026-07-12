@@ -85,6 +85,14 @@ test("admin manager keeps readable Chinese copy", async () => {
   assert.doesNotMatch(source, /[�锛鍒犵绠璧鎼]/);
 });
 
+test("admin manager can copy public resource links", async () => {
+  const source = await read("components/admin-manager.tsx");
+  assert.match(source, /copyPublicLink/);
+  assert.match(source, /navigator\.clipboard\.writeText/);
+  assert.match(source, /\/item\/\$\{slug\}/);
+  assert.match(source, /复制链接/);
+});
+
 test("admin resource backup export is administrator-only and visible", async () => {
   const route = await read("app/api/resources/export/route.ts");
   assert.match(route, /resource-metadata-backup/);

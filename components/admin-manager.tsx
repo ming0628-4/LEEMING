@@ -154,6 +154,19 @@ export function AdminManager() {
     }
   }
 
+  async function copyPublicLink(slug: string) {
+    const url = `${window.location.origin}/item/${slug}`;
+
+    try {
+      await navigator.clipboard.writeText(url);
+      setNotice("公开链接已复制，可以直接粘贴分享。");
+      setError("");
+    } catch {
+      setError(`复制失败，可以手动复制：${url}`);
+      setNotice("");
+    }
+  }
+
   return (
     <>
       <div className="section-head">
@@ -289,6 +302,9 @@ export function AdminManager() {
                     <Link href={`/item/${row.slug}`} className="muted-link">
                       预览
                     </Link>
+                    <button className="secondary-button compact-button" type="button" onClick={() => copyPublicLink(row.slug)}>
+                      复制链接
+                    </button>
                     <Link href={`/admin/edit/${row.id}`}>编辑</Link>
                     <button className="danger-button" disabled={busy} onClick={() => deleteIds([row.id])}>
                       删除

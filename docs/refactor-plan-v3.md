@@ -133,6 +133,15 @@ Impact: `components/admin-manager.tsx`, `app/globals.css`.
 
 Impact: `components/upload-form.tsx`, `components/edit-resource-form.tsx`, `app/globals.css`.
 
+# 2026-07-13 Admin Public Link Copy
+
+- [in-progress] Add a one-click public link copy action in the admin resource table.
+- [in-progress] Keep ordinary visitors unaffected and preserve the current public routes.
+- [in-progress] Add regression coverage for the admin link copy UI.
+- [in-progress] Validate tests, commit, push, and publish the updated site.
+
+Impact: `components/admin-manager.tsx`, `tests/architecture.test.mjs`.
+
 # 2026-07-13 Tutorial Step Ordering
 
 - [done] Add admin controls for moving tutorial steps up and down.
