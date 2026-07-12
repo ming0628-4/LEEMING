@@ -89,7 +89,7 @@ export function EditResourceForm({ id }: { id: string }) {
 
       <TutorialEditor
         initialSteps={data.tutorial ?? []}
-        intro="有些软件需要说明步骤，就在这里补截图或视频。"
+        intro="有些软件需要说明步骤，可以在这里补截图或视频。"
       />
 
       <div className="form-actions">

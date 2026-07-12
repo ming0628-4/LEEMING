@@ -100,3 +100,19 @@ test("tutorial editor supports readable media replacement flow", async () => {
   assert.match(source, /重新选择文件会替换当前素材链接/);
   assert.doesNotMatch(source, /[�锛鍒犵绠璧鎼]/);
 });
+
+test("public home, navigation, and resource forms keep readable Chinese copy", async () => {
+  for (const file of [
+    "app/page.tsx",
+    "components/site-nav.tsx",
+    "components/upload-form.tsx",
+    "components/edit-resource-form.tsx",
+  ]) {
+    const source = await read(file);
+    assert.doesNotMatch(source, /[�锛鍒犵绠璧鎼]/);
+  }
+  assert.match(await read("app/page.tsx"), /公开资源库/);
+  assert.match(await read("components/site-nav.tsx"), /资源库/);
+  assert.match(await read("components/upload-form.tsx"), /发布资源/);
+  assert.match(await read("components/edit-resource-form.tsx"), /保存修改/);
+});

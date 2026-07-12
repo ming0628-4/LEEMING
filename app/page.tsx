@@ -26,7 +26,7 @@ export default async function Home() {
         </div>
         <div className="home-hero-grid">
           <div className="home-copy">
-            <p className="eyebrow">公开资料库</p>
+            <p className="eyebrow">公开资源库</p>
             <h1>把真正有用的东西，放在以后还能找到的地方。</h1>
             <p className="hero-copy">
               LEEMING 是一个长期维护的个人资源库。这里不追求数量，只保留经过筛选、说明清楚、需要时能快速取回的资料。
@@ -44,7 +44,7 @@ export default async function Home() {
               <button type="submit">搜索</button>
             </form>
           </div>
-          <aside className="home-panel" aria-label="资料库状态">
+          <aside className="home-panel" aria-label="资源库状态">
             <div>
               <span>资源</span>
               <strong>{resources.length}</strong>
