@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { findResource } from "@/lib/resource-repository";
+import { findResource, type TutorialStep } from "@/lib/resource-repository";
 
 export default async function Item({
   params,
@@ -61,11 +61,57 @@ export default async function Item({
           </a>
         </aside>
       </div>
+
       <div className="tags">
         {item.tags.map((tag) => (
           <span key={tag}>{tag}</span>
         ))}
       </div>
+
+      {item.tutorial.length ? <Tutorial steps={item.tutorial} /> : null}
     </main>
+  );
+}
+
+function Tutorial({ steps }: { steps: TutorialStep[] }) {
+  return (
+    <section className="tutorial-section">
+      <div className="section-head">
+        <div>
+          <p className="eyebrow">操作教程</p>
+          <h2>怎么使用</h2>
+        </div>
+        <span>{steps.length} 个步骤</span>
+      </div>
+      <div className="tutorial-list">
+        {steps.map((step, index) => (
+          <article className="tutorial-step" key={`${step.title}-${index}`}>
+            <div className="tutorial-index">{String(index + 1).padStart(2, "0")}</div>
+            <div className="tutorial-content">
+              <h3>{step.title || `步骤 ${index + 1}`}</h3>
+              {step.description ? <p>{step.description}</p> : null}
+              {step.mediaUrl ? <TutorialMedia step={step} /> : null}
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function TutorialMedia({ step }: { step: TutorialStep }) {
+  if (step.mediaType === "image") {
+    return (
+      <a className="tutorial-media image" href={step.mediaUrl} target="_blank" rel="noreferrer">
+        <img src={step.mediaUrl} alt={step.title || "教程截图"} />
+      </a>
+    );
+  }
+
+  return (
+    <a className="tutorial-media link" href={step.mediaUrl} target="_blank" rel="noreferrer">
+      <span>{step.mediaType === "video" ? "打开视频教程" : "打开教程链接"}</span>
+      <strong>↗</strong>
+    </a>
   );
 }

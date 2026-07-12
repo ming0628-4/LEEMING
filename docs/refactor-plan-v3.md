@@ -1,3 +1,13 @@
+# 2026-07-12 Resource Tutorial Module
+
+- [done] Add optional tutorial steps for resources: title, description, media type, media URL.
+- [done] Store tutorial data as JSON for future migration to uploaded media assets.
+- [done] Update upload and edit forms with a clean tutorial section.
+- [done] Render tutorial steps on item pages only when a resource has them.
+- [in-progress] Validate build/tests and deploy.
+
+Impact: `db/schema.ts`, `db/index.ts`, `drizzle/0003_add_tutorial.sql`, `app/api/resources/**`, `components/upload-form.tsx`, `components/edit-resource-form.tsx`, `app/item/[slug]/page.tsx`, `app/globals.css`.
+
 # 2026-07-12 Mainland Admin Login
 
 - [done] Replace ChatGPT-based admin login with LEEMING-owned password login.

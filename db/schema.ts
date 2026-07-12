@@ -15,6 +15,7 @@ export const resources = sqliteTable("resources", {
   objectKey: text("object_key"),
   description: text("description").notNull().default(""),
   why: text("why").notNull(),
+  tutorial: text("tutorial").notNull().default("[]"),
   sourceUrl: text("source_url").notNull(),
   status: text("status").notNull().default("published"),
   createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
