@@ -135,11 +135,11 @@ Impact: `components/upload-form.tsx`, `components/edit-resource-form.tsx`, `app/
 
 # 2026-07-13 Tutorial Media Cleanup
 
-- [in-progress] Delete internal tutorial screenshots/videos from R2 when an admin deletes a resource.
-- [in-progress] Keep external tutorial links untouched so user-added reference URLs are safe.
-- [in-progress] Return cleanup metadata for easier future admin troubleshooting.
-- [in-progress] Add regression coverage for tutorial media cleanup.
-- [in-progress] Validate tests, commit, push, and publish the updated site.
+- [done] Delete internal tutorial screenshots/videos from R2 when an admin deletes a resource.
+- [done] Keep external tutorial links untouched so user-added reference URLs are safe.
+- [done] Return cleanup metadata for easier future admin troubleshooting.
+- [done] Add regression coverage for tutorial media cleanup.
+- [done] Validate tests, commit, push, and publish the updated site.
 
 Impact: `app/api/resources/[id]/route.ts`, `tests/architecture.test.mjs`.
 
