@@ -116,3 +116,19 @@ test("public home, navigation, and resource forms keep readable Chinese copy", a
   assert.match(await read("components/upload-form.tsx"), /发布资源/);
   assert.match(await read("components/edit-resource-form.tsx"), /保存修改/);
 });
+
+test("archive, resource cards, item detail, and footer keep readable Chinese copy", async () => {
+  for (const file of [
+    "app/archive/page.tsx",
+    "components/resource-card.tsx",
+    "app/item/[slug]/page.tsx",
+    "app/layout.tsx",
+  ]) {
+    const source = await read(file);
+    assert.doesNotMatch(source, /[�锛鍒犵绠璧鎼]/);
+  }
+  assert.match(await read("app/archive/page.tsx"), /全部资源/);
+  assert.match(await read("components/resource-card.tsx"), /版本/);
+  assert.match(await read("app/item/[slug]/page.tsx"), /获取资源/);
+  assert.match(await read("app/layout.tsx"), /管理入口/);
+});

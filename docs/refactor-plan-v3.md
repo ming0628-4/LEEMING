@@ -1,3 +1,11 @@
+# 2026-07-12 Archive And Detail Copy Repair
+
+- [done] Repair remaining mojibake copy in Archive page, resource cards, item detail page, and footer.
+- [done] Add regression coverage for readable archive/detail copy.
+- [in-progress] Validate build/tests and deploy.
+
+Impact: `app/archive/page.tsx`, `components/resource-card.tsx`, `app/item/[slug]/page.tsx`, `app/layout.tsx`, `tests/architecture.test.mjs`.
+
 # 2026-07-12 Public And Form Copy Repair
 
 - [done] Repair remaining mojibake copy on the home page and public navigation.

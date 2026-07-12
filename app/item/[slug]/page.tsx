@@ -111,7 +111,7 @@ function TutorialMedia({ step }: { step: TutorialStep }) {
   return (
     <a className="tutorial-media link" href={step.mediaUrl} target="_blank" rel="noreferrer">
       <span>{step.mediaType === "video" ? "打开视频教程" : "打开教程链接"}</span>
-      <strong>↗</strong>
+      <strong>→</strong>
     </a>
   );
 }
