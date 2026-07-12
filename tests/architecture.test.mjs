@@ -150,6 +150,9 @@ test("resource delete cleans primary R2 object and file APIs keep readable copy"
   const resourceRoute = await read("app/api/resources/[id]/route.ts");
   assert.match(resourceRoute, /env\.ARCHIVE\.delete/);
   assert.match(resourceRoute, /deletedObjectKey/);
+  assert.match(resourceRoute, /deletedObjectKeys/);
+  assert.match(resourceRoute, /getTutorialObjectKeys/);
+  assert.match(resourceRoute, /\/api\/files\//);
   assert.match(resourceRoute, /资源不存在/);
 
   for (const file of ["app/api/files/route.ts", "app/api/files/[...key]/route.ts"]) {

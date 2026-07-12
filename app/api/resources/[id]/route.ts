@@ -28,6 +28,37 @@ function isResourceObjectKey(value: string | null) {
   return Boolean(value?.startsWith("resources/"));
 }
 
+function getInternalFileKey(mediaUrl: string) {
+  const marker = "/api/files/";
+  const markerIndex = mediaUrl.indexOf(marker);
+  if (markerIndex < 0) return null;
+
+  const rawKey = mediaUrl.slice(markerIndex + marker.length).split(/[?#]/)[0];
+  if (!rawKey.startsWith("resources/")) return null;
+
+  try {
+    return decodeURIComponent(rawKey);
+  } catch {
+    return rawKey;
+  }
+}
+
+function getTutorialObjectKeys(tutorial: string) {
+  try {
+    const steps = JSON.parse(tutorial) as unknown;
+    if (!Array.isArray(steps)) return [];
+
+    return steps
+      .map((step) => {
+        const mediaUrl = clean((step as Record<string, unknown>).mediaUrl);
+        return mediaUrl ? getInternalFileKey(mediaUrl) : null;
+      })
+      .filter((key): key is string => isResourceObjectKey(key));
+  } catch {
+    return [];
+  }
+}
+
 export async function GET(_: Request, { params }: { params: Promise<{ id: string }> }) {
   await ensureResourcesTable();
   const [row] = await getDb()
@@ -95,9 +126,18 @@ export async function DELETE(_: Request, { params }: { params: Promise<{ id: str
 
   if (!row) return Response.json({ error: "资源不存在" }, { status: 404 });
 
-  if (isResourceObjectKey(row.objectKey)) {
-    await env.ARCHIVE.delete(row.objectKey!);
+  const objectKeys = new Set<string>();
+  if (isResourceObjectKey(row.objectKey)) objectKeys.add(row.objectKey!);
+  for (const key of getTutorialObjectKeys(row.tutorial)) objectKeys.add(key);
+
+  for (const key of objectKeys) {
+    await env.ARCHIVE.delete(key);
   }
 
-  return Response.json({ ok: true, deletedObjectKey: row.objectKey ?? null });
+  return Response.json({
+    ok: true,
+    deletedObjectKey: row.objectKey ?? null,
+    deletedObjectKeys: [...objectKeys],
+    deletedObjectCount: objectKeys.size,
+  });
 }
