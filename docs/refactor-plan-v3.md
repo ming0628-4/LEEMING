@@ -3,7 +3,7 @@
 - [done] Remove unused ChatGPT auth helper after password admin login replacement.
 - [done] Add a clean Chinese maintenance summary before the archived legacy mojibake section.
 - [done] Add small mobile layout refinements for tables, forms, and item headers.
-- [in-progress] Validate build/tests and deploy.
+- [done] Validate build/tests and deploy.
 
 Impact: `app/chatgpt-auth.ts`, `docs/refactor-plan-v3.md`, `app/globals.css`, `tests/architecture.test.mjs`.
 
