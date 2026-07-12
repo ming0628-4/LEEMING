@@ -4,7 +4,7 @@
 - [done] Store tutorial data as JSON for future migration to uploaded media assets.
 - [done] Update upload and edit forms with a clean tutorial section.
 - [done] Render tutorial steps on item pages only when a resource has them.
-- [in-progress] Validate build/tests and deploy.
+- [done] Validate build/tests and deploy.
 
 Impact: `db/schema.ts`, `db/index.ts`, `drizzle/0003_add_tutorial.sql`, `app/api/resources/**`, `components/upload-form.tsx`, `components/edit-resource-form.tsx`, `app/item/[slug]/page.tsx`, `app/globals.css`.
 
