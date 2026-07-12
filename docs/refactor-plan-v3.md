@@ -135,11 +135,11 @@ Impact: `components/upload-form.tsx`, `components/edit-resource-form.tsx`, `app/
 
 # 2026-07-13 Admin Maintenance Filters
 
-- [in-progress] Add admin filters for all resources, resources with tutorials, and resources without tutorials.
-- [in-progress] Add category filtering based on existing uploaded resources.
-- [in-progress] Keep current text search and batch-selection behavior compatible with filters.
-- [in-progress] Add regression coverage for the admin filter UI.
-- [in-progress] Validate tests, commit, push, and publish the updated site.
+- [done] Add admin filters for all resources, resources with tutorials, and resources without tutorials.
+- [done] Add category filtering based on existing uploaded resources.
+- [done] Keep current text search and batch-selection behavior compatible with filters.
+- [done] Add regression coverage for the admin filter UI.
+- [done] Validate tests, commit, push, and publish the updated site.
 
 Impact: `components/admin-manager.tsx`, `tests/architecture.test.mjs`.
 
