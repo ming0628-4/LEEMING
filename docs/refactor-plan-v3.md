@@ -1,3 +1,13 @@
+# 2026-07-12 Tutorial Upload UX
+
+- [done] Change tutorial editor from four always-visible steps to add/remove steps.
+- [done] Allow each tutorial step to upload screenshot/video files through the existing R2 file API.
+- [done] Auto-fill tutorial media URL after upload and keep manual URL editing available.
+- [done] Improve tutorial editor layout so long forms stay readable.
+- [in-progress] Validate build/tests and deploy.
+
+Impact: `components/upload-form.tsx`, `components/edit-resource-form.tsx`, `app/globals.css`.
+
 # 2026-07-12 Resource Tutorial Module
 
 - [done] Add optional tutorial steps for resources: title, description, media type, media URL.

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { collectTutorialFromForm, TutorialEditor } from "./tutorial-editor";
 
 type Info = { fileName: string; fileSize: number; fileType: string; sha256: string };
 type Phase = "idle" | "hashing" | "uploading" | "saving";
@@ -12,22 +13,6 @@ const phaseText: Record<Phase, string> = {
   uploading: "正在上传文件...",
   saving: "正在保存资源信息...",
 };
-
-function collectTutorial(form: FormData) {
-  const titles = form.getAll("tutorialTitle").map(String);
-  const descriptions = form.getAll("tutorialDescription").map(String);
-  const mediaTypes = form.getAll("tutorialMediaType").map(String);
-  const mediaUrls = form.getAll("tutorialMediaUrl").map(String);
-
-  return titles
-    .map((title, index) => ({
-      title: title.trim(),
-      description: descriptions[index]?.trim() ?? "",
-      mediaType: mediaTypes[index] === "video" || mediaTypes[index] === "link" ? mediaTypes[index] : "image",
-      mediaUrl: mediaUrls[index]?.trim() ?? "",
-    }))
-    .filter((step) => step.title || step.description || step.mediaUrl);
-}
 
 export function UploadForm() {
   const router = useRouter();
@@ -89,7 +74,7 @@ export function UploadForm() {
           ...info,
           objectKey,
           sourceUrl,
-          tutorial: collectTutorial(form),
+          tutorial: collectTutorialFromForm(form),
         }),
       });
       const payload = await response.json();
@@ -147,7 +132,7 @@ export function UploadForm() {
         <textarea name="why" rows={5} required />
       </label>
 
-      <TutorialFields />
+      <TutorialEditor intro="需要截图或视频说明的软件，可以在这里补步骤。" />
 
       {error ? (
         <p className="form-error" role="alert">
@@ -158,44 +143,5 @@ export function UploadForm() {
         {phaseText[phase]}
       </button>
     </form>
-  );
-}
-
-function TutorialFields() {
-  return (
-    <section className="tutorial-editor">
-      <div>
-        <p className="eyebrow">操作教程（可选）</p>
-        <h2>需要截图或视频说明的软件，可以在这里补步骤。</h2>
-        <span>没有教程的资源不用填。媒体链接可以先放图片地址、B 站视频、网盘预览页或自己的视频链接。</span>
-      </div>
-      {[0, 1, 2, 3].map((index) => (
-        <fieldset className="tutorial-step-editor" key={index}>
-          <legend>步骤 {index + 1}</legend>
-          <div className="form-grid">
-            <label>
-              步骤标题
-              <input name="tutorialTitle" placeholder="例如：下载并安装" />
-            </label>
-            <label>
-              媒体类型
-              <select name="tutorialMediaType" defaultValue="image">
-                <option value="image">截图</option>
-                <option value="video">视频</option>
-                <option value="link">链接</option>
-              </select>
-            </label>
-          </div>
-          <label>
-            步骤说明
-            <textarea name="tutorialDescription" rows={3} placeholder="写清楚这一步怎么操作。" />
-          </label>
-          <label>
-            截图 / 视频链接
-            <input name="tutorialMediaUrl" type="url" placeholder="https://..." />
-          </label>
-        </fieldset>
-      ))}
-    </section>
   );
 }

@@ -551,6 +551,13 @@ textarea:focus {
   padding-top: 28px;
 }
 
+.tutorial-editor-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
 .tutorial-editor h2 {
   margin: 0 0 8px;
   font-size: 1.35rem;
@@ -560,6 +567,15 @@ textarea:focus {
 .tutorial-editor span {
   color: var(--muted);
   line-height: 1.65;
+}
+
+.tutorial-empty {
+  border: 1px dashed var(--line);
+  border-radius: 12px;
+  background: #fafbf8;
+  padding: 24px;
+  color: var(--muted);
+  text-align: center;
 }
 
 .tutorial-step-editor {
@@ -576,6 +592,25 @@ textarea:focus {
   padding: 0 8px;
   color: var(--accent);
   font-weight: 800;
+}
+
+.tutorial-step-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.tutorial-file-row {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.8fr) 1fr;
+  gap: 18px;
+}
+
+.tutorial-uploading {
+  margin: 0;
+  color: var(--accent);
+  font-size: 0.9rem;
 }
 
 .item-aside,
@@ -849,7 +884,9 @@ footer {
   .home-kicker,
   .section-head,
   .archive-title,
-  .footer-inner {
+  .footer-inner,
+  .tutorial-editor-head,
+  .tutorial-step-actions {
     align-items: flex-start;
     flex-direction: column;
   }
@@ -862,7 +899,8 @@ footer {
   .hero-search,
   .filter-bar,
   .form-grid,
-  .admin-stats {
+  .admin-stats,
+  .tutorial-file-row {
     grid-template-columns: 1fr;
   }
 
