@@ -1,3 +1,13 @@
+# 2026-07-12 Resource Backup Export
+
+- [done] Add administrator-only JSON export endpoint for resource metadata backup.
+- [done] Add export entry in admin console with clear Chinese guidance.
+- [done] Repair resource API Chinese error messages touched by backup flow.
+- [done] Add regression tests for export permissions and admin backup entry.
+- [in-progress] Validate build/tests and deploy.
+
+Impact: `app/api/resources/export/route.ts`, `app/api/resources/route.ts`, `app/api/resources/[id]/route.ts`, `components/admin-manager.tsx`, `tests/architecture.test.mjs`.
+
 # 2026-07-12 Admin Dashboard Polish
 
 - [done] Repair remaining mojibake copy in admin resource manager.

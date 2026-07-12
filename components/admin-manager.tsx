@@ -93,6 +93,9 @@ export function AdminManager() {
           <Link className="primary-button" href="/admin/upload">
             上传资源
           </Link>
+          <a className="secondary-button" href="/api/resources/export">
+            导出备份
+          </a>
           <form action="/api/admin/logout" method="post">
             <button className="secondary-button" type="submit">
               退出登录

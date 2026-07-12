@@ -1,7 +1,7 @@
 import { eq, sql } from "drizzle-orm";
+import { getLeemingAdmin } from "@/app/admin-auth";
 import { ensureResourcesTable, getDb } from "@/db";
 import { resources } from "@/db/schema";
-import { getLeemingAdmin } from "@/app/admin-auth";
 
 function clean(value: unknown) {
   return typeof value === "string" ? value.trim() : "";
@@ -88,7 +88,5 @@ export async function DELETE(_: Request, { params }: { params: Promise<{ id: str
     .where(eq(resources.id, Number((await params).id)))
     .returning();
 
-  return row
-    ? Response.json({ ok: true })
-    : Response.json({ error: "资源不存在" }, { status: 404 });
+  return row ? Response.json({ ok: true }) : Response.json({ error: "资源不存在" }, { status: 404 });
 }
