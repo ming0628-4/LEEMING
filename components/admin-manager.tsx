@@ -33,6 +33,7 @@ export function AdminManager() {
   const [query, setQuery] = useState("");
   const [tutorialFilter, setTutorialFilter] = useState<"all" | "with" | "without">("all");
   const [categoryFilter, setCategoryFilter] = useState("all");
+  const [sortMode, setSortMode] = useState<"updated" | "name" | "category">("updated");
 
   async function loadResources() {
     setLoading(true);
@@ -55,18 +56,29 @@ export function AdminManager() {
 
   const filteredRows = useMemo(() => {
     const keyword = query.trim().toLowerCase();
-    return rows.filter((row) =>
-      (tutorialFilter === "all" ||
-        (tutorialFilter === "with" && Boolean(row.tutorial?.length)) ||
-        (tutorialFilter === "without" && !row.tutorial?.length)) &&
-      (categoryFilter === "all" || row.category === categoryFilter) &&
-      (!keyword ||
-        [row.name, row.category, row.version, row.status, ...(row.tags ?? [])]
-          .join(" ")
-          .toLowerCase()
-          .includes(keyword)),
-    );
-  }, [categoryFilter, query, rows, tutorialFilter]);
+    return rows
+      .filter((row) =>
+        (tutorialFilter === "all" ||
+          (tutorialFilter === "with" && Boolean(row.tutorial?.length)) ||
+          (tutorialFilter === "without" && !row.tutorial?.length)) &&
+        (categoryFilter === "all" || row.category === categoryFilter) &&
+        (!keyword ||
+          [row.name, row.category, row.version, row.status, ...(row.tags ?? [])]
+            .join(" ")
+            .toLowerCase()
+            .includes(keyword)),
+      )
+      .sort((left, right) => {
+        if (sortMode === "name") return left.name.localeCompare(right.name, "zh-CN");
+        if (sortMode === "category") {
+          return (
+            left.category.localeCompare(right.category, "zh-CN") ||
+            left.name.localeCompare(right.name, "zh-CN")
+          );
+        }
+        return new Date(right.updatedAt).getTime() - new Date(left.updatedAt).getTime();
+      });
+  }, [categoryFilter, query, rows, sortMode, tutorialFilter]);
 
   const categories = useMemo(
     () => Array.from(new Set(rows.map((row) => row.category).filter(Boolean))).sort(),
@@ -268,6 +280,14 @@ export function AdminManager() {
                 {category}
               </option>
             ))}
+          </select>
+        </label>
+        <label>
+          <span>排序方式</span>
+          <select value={sortMode} onChange={(event) => setSortMode(event.target.value as "updated" | "name" | "category")}>
+            <option value="updated">最近更新优先</option>
+            <option value="name">按名称排序</option>
+            <option value="category">按分类排序</option>
           </select>
         </label>
         <span>

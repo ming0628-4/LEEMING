@@ -133,6 +133,15 @@ Impact: `components/admin-manager.tsx`, `app/globals.css`.
 
 Impact: `components/upload-form.tsx`, `components/edit-resource-form.tsx`, `app/globals.css`.
 
+# 2026-07-13 Admin Sort Controls
+
+- [in-progress] Add admin sorting for recently updated resources, resource name, and category.
+- [in-progress] Keep sorting compatible with search, tutorial filters, category filters, and batch selection.
+- [in-progress] Add regression coverage for the admin sort UI.
+- [in-progress] Validate tests, commit, push, and publish the updated site.
+
+Impact: `components/admin-manager.tsx`, `tests/architecture.test.mjs`.
+
 # 2026-07-13 Admin Maintenance Filters
 
 - [done] Add admin filters for all resources, resources with tutorials, and resources without tutorials.

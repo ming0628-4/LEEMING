@@ -103,6 +103,16 @@ test("admin manager supports maintenance filters", async () => {
   assert.match(source, /资源分类/);
 });
 
+test("admin manager supports stable resource sorting", async () => {
+  const source = await read("components/admin-manager.tsx");
+  assert.match(source, /sortMode/);
+  assert.match(source, /排序方式/);
+  assert.match(source, /最近更新优先/);
+  assert.match(source, /按名称排序/);
+  assert.match(source, /按分类排序/);
+  assert.match(source, /localeCompare/);
+});
+
 test("admin resource backup export is administrator-only and visible", async () => {
   const route = await read("app/api/resources/export/route.ts");
   assert.match(route, /resource-metadata-backup/);
