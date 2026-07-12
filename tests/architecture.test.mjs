@@ -80,6 +80,8 @@ test("admin manager keeps readable Chinese copy", async () => {
   assert.match(source, /资源管理/);
   assert.match(source, /上传资源/);
   assert.match(source, /确认删除/);
+  assert.match(source, /批量删除/);
+  assert.match(source, /已选择/);
   assert.doesNotMatch(source, /[�锛鍒犵绠璧鎼]/);
 });
 

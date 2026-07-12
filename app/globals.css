@@ -709,6 +709,23 @@ dd {
   white-space: nowrap;
 }
 
+.bulk-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 16px;
+  border: 1px solid #ead3cf;
+  border-radius: 12px;
+  background: #fff8f6;
+  padding: 14px 16px;
+}
+
+.bulk-bar span {
+  color: var(--danger);
+  font-weight: 750;
+}
+
 .table-wrap {
   overflow: auto;
 }
@@ -1043,6 +1060,7 @@ footer {
 
   .admin-actions,
   .form-actions,
+  .bulk-bar,
   .tutorial-step-buttons,
   .table-actions {
     align-items: stretch;

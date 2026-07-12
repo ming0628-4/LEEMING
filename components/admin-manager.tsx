@@ -24,7 +24,9 @@ function formatDate(value: string) {
 
 export function AdminManager() {
   const [rows, setRows] = useState<Row[]>([]);
+  const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const [loading, setLoading] = useState(true);
+  const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [query, setQuery] = useState("");
 
@@ -50,6 +52,10 @@ export function AdminManager() {
     );
   }, [query, rows]);
 
+  const filteredIds = useMemo(() => filteredRows.map((row) => row.id), [filteredRows]);
+  const selectedVisibleCount = selectedIds.filter((id) => filteredIds.includes(id)).length;
+  const allVisibleSelected = filteredRows.length > 0 && selectedVisibleCount === filteredRows.length;
+
   const stats = useMemo(() => {
     const categories = new Set(rows.map((row) => row.category).filter(Boolean));
     const tutorialCount = rows.filter((row) => row.tutorial?.length).length;
@@ -67,16 +73,46 @@ export function AdminManager() {
     };
   }, [rows]);
 
-  async function remove(id: number, name: string) {
-    if (!confirm(`确认删除「${name}」？此操作不可撤销。`)) return;
+  function toggleOne(id: number) {
+    setSelectedIds((current) =>
+      current.includes(id) ? current.filter((item) => item !== id) : [...current, id],
+    );
+  }
 
-    const response = await fetch(`/api/resources/${id}`, { method: "DELETE" });
-    if (response.ok) {
-      setRows((current) => current.filter((item) => item.id !== id));
-      return;
+  function toggleVisible() {
+    setSelectedIds((current) => {
+      if (allVisibleSelected) return current.filter((id) => !filteredIds.includes(id));
+      return Array.from(new Set([...current, ...filteredIds]));
+    });
+  }
+
+  async function deleteIds(ids: number[]) {
+    if (!ids.length || busy) return;
+    const names = rows.filter((row) => ids.includes(row.id)).map((row) => row.name);
+    const message =
+      ids.length === 1
+        ? `确认删除「${names[0]}」？此操作不可撤销。`
+        : `确认删除已选中的 ${ids.length} 个资源？此操作不可撤销。`;
+    if (!confirm(message)) return;
+
+    setBusy(true);
+    setError("");
+    try {
+      for (const id of ids) {
+        const response = await fetch(`/api/resources/${id}`, { method: "DELETE" });
+        if (!response.ok) {
+          const payload = await response.json().catch(() => ({}));
+          throw new Error(payload.error || "删除失败，请刷新后重试。");
+        }
+      }
+
+      setRows((current) => current.filter((item) => !ids.includes(item.id)));
+      setSelectedIds((current) => current.filter((id) => !ids.includes(id)));
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : "删除失败，请刷新后重试。");
+    } finally {
+      setBusy(false);
     }
-
-    setError("删除失败，请刷新后重试。");
   }
 
   return (
@@ -143,14 +179,21 @@ export function AdminManager() {
         </span>
       </div>
 
+      {selectedIds.length ? (
+        <div className="bulk-bar">
+          <span>已选择 {selectedIds.length} 个资源</span>
+          <button className="danger-button" type="button" disabled={busy} onClick={() => deleteIds(selectedIds)}>
+            {busy ? "正在删除..." : "批量删除"}
+          </button>
+        </div>
+      ) : null}
+
       {loading ? (
         <div className="empty" aria-live="polite">
           正在读取资源...
         </div>
       ) : rows.length === 0 ? (
-        <div className="empty">
-          还没有资源。先上传第一条真正值得长期保留的内容。
-        </div>
+        <div className="empty">还没有资源。先上传第一条真正值得长期保留的内容。</div>
       ) : filteredRows.length === 0 ? (
         <div className="empty">没有匹配的资源，可以换一个关键词试试。</div>
       ) : (
@@ -158,6 +201,14 @@ export function AdminManager() {
           <table>
             <thead>
               <tr>
+                <th>
+                  <input
+                    aria-label="选择当前显示的资源"
+                    type="checkbox"
+                    checked={allVisibleSelected}
+                    onChange={toggleVisible}
+                  />
+                </th>
                 <th>资源</th>
                 <th>分类</th>
                 <th>版本</th>
@@ -170,6 +221,14 @@ export function AdminManager() {
               {filteredRows.map((row) => (
                 <tr key={row.id}>
                   <td>
+                    <input
+                      aria-label={`选择 ${row.name}`}
+                      type="checkbox"
+                      checked={selectedIds.includes(row.id)}
+                      onChange={() => toggleOne(row.id)}
+                    />
+                  </td>
+                  <td>
                     <strong>{row.name}</strong>
                   </td>
                   <td>{row.category || "未分类"}</td>
@@ -181,7 +240,7 @@ export function AdminManager() {
                       预览
                     </Link>
                     <Link href={`/admin/edit/${row.id}`}>编辑</Link>
-                    <button className="danger-button" onClick={() => remove(row.id, row.name)}>
+                    <button className="danger-button" disabled={busy} onClick={() => deleteIds([row.id])}>
                       删除
                     </button>
                   </td>

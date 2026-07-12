@@ -1,3 +1,12 @@
+# 2026-07-12 Admin Batch Management
+
+- [done] Repair remaining mojibake copy in the admin manager.
+- [done] Add checkbox selection and batch delete using the existing resource delete API.
+- [done] Add regression coverage for readable admin batch management copy.
+- [in-progress] Validate build/tests and deploy.
+
+Impact: `components/admin-manager.tsx`, `app/globals.css`, `tests/architecture.test.mjs`.
+
 # 2026-07-12 Archive And Detail Copy Repair
 
 - [done] Repair remaining mojibake copy in Archive page, resource cards, item detail page, and footer.
