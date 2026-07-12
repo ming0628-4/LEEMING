@@ -4,7 +4,7 @@
 - [done] Add export entry in admin console with clear Chinese guidance.
 - [done] Repair resource API Chinese error messages touched by backup flow.
 - [done] Add regression tests for export permissions and admin backup entry.
-- [in-progress] Validate build/tests and deploy.
+- [done] Validate build/tests and deploy.
 
 Impact: `app/api/resources/export/route.ts`, `app/api/resources/route.ts`, `app/api/resources/[id]/route.ts`, `components/admin-manager.tsx`, `tests/architecture.test.mjs`.
 
