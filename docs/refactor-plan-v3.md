@@ -1,3 +1,12 @@
+# 2026-07-12 Admin Management Polish
+
+- [done] Fix remaining admin manager mojibake text.
+- [done] Add local admin search for resource management.
+- [done] Improve admin table empty states and actions.
+- [in-progress] Validate build/tests and deploy.
+
+Impact: `components/admin-manager.tsx`, `app/globals.css`.
+
 # 2026-07-12 Tutorial Upload UX
 
 - [done] Change tutorial editor from four always-visible steps to add/remove steps.
