@@ -3,7 +3,7 @@
 - [done] Repair remaining mojibake copy in admin resource manager.
 - [done] Add practical admin overview metrics for total resources, categories, tutorials, and latest update.
 - [done] Improve admin search and empty states with clear Chinese guidance.
-- [in-progress] Validate build/tests and deploy.
+- [done] Validate build/tests and deploy.
 
 Impact: `components/admin-manager.tsx`, `app/globals.css`, `tests/architecture.test.mjs`.
 
