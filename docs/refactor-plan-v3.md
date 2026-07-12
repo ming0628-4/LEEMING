@@ -135,10 +135,10 @@ Impact: `components/upload-form.tsx`, `components/edit-resource-form.tsx`, `app/
 
 # 2026-07-13 Tutorial Step Ordering
 
-- [in-progress] Add admin controls for moving tutorial steps up and down.
-- [in-progress] Keep the existing form data model unchanged so uploads, edits, and imports remain compatible.
-- [in-progress] Add regression coverage for the tutorial ordering UI.
-- [in-progress] Validate tests, commit, push, and publish the updated site.
+- [done] Add admin controls for moving tutorial steps up and down.
+- [done] Keep the existing form data model unchanged so uploads, edits, and imports remain compatible.
+- [done] Add regression coverage for the tutorial ordering UI.
+- [done] Validate tests, commit, push, and publish the updated site.
 
 Impact: `components/tutorial-editor.tsx`, `tests/architecture.test.mjs`.
 
