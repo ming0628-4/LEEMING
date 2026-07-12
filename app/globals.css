@@ -601,6 +601,12 @@ textarea:focus {
   gap: 14px;
 }
 
+.tutorial-step-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .tutorial-file-row {
   display: grid;
   grid-template-columns: minmax(220px, 0.8fr) 1fr;
@@ -818,6 +824,10 @@ th {
   font-weight: 700;
 }
 
+.compact-button {
+  padding: 7px 11px;
+}
+
 .danger-button {
   border: 1px solid #e7c8c3;
   border-radius: 8px;
@@ -835,6 +845,12 @@ th {
   background: #fff2f0;
   color: #a4261c;
   padding: 12px;
+}
+
+.tutorial-hint {
+  margin: -4px 0 0;
+  color: var(--muted);
+  font-size: 0.88rem;
 }
 
 .primary-button:disabled {
@@ -1027,6 +1043,7 @@ footer {
 
   .admin-actions,
   .form-actions,
+  .tutorial-step-buttons,
   .table-actions {
     align-items: stretch;
     white-space: nowrap;

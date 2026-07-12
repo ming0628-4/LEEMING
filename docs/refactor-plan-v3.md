@@ -1,3 +1,12 @@
+# 2026-07-12 Tutorial Media Maintenance
+
+- [done] Repair readable Chinese copy in the tutorial editor.
+- [done] Add clear/replace affordance for tutorial screenshot and video media URLs.
+- [done] Add regression coverage for tutorial media maintenance copy.
+- [in-progress] Validate build/tests and keep deployment state safe.
+
+Impact: `components/tutorial-editor.tsx`, `app/globals.css`, `tests/architecture.test.mjs`.
+
 # 2026-07-12 Resource Backup Export
 
 - [done] Add administrator-only JSON export endpoint for resource metadata backup.

@@ -92,3 +92,11 @@ test("admin resource backup export is administrator-only and visible", async () 
   assert.match(manager, /导出备份/);
   assert.match(manager, /\/api\/resources\/export/);
 });
+
+test("tutorial editor supports readable media replacement flow", async () => {
+  const source = await read("components/tutorial-editor.tsx");
+  assert.match(source, /操作教程（可选）/);
+  assert.match(source, /清空素材/);
+  assert.match(source, /重新选择文件会替换当前素材链接/);
+  assert.doesNotMatch(source, /[�锛鍒犵绠璧鎼]/);
+});

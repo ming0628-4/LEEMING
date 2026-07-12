@@ -61,6 +61,10 @@ export function TutorialEditor({
     );
   }
 
+  function clearMedia(index: number) {
+    updateStep(index, { mediaUrl: "", mediaType: "image" });
+  }
+
   async function uploadMedia(index: number, file?: File) {
     if (!file) return;
     setUploadingIndex(index);
@@ -91,7 +95,7 @@ export function TutorialEditor({
           <p className="eyebrow">操作教程（可选）</p>
           <h2>{intro}</h2>
           <span>
-            没有教程的资源不用填。需要教程时，可以直接上传截图/视频，也可以手动粘贴外部链接。
+            没有教程的资源不用填写。需要教程时，可以直接上传截图/视频，也可以手动粘贴外部链接。
           </span>
         </div>
         <button className="secondary-button" type="button" onClick={addStep}>
@@ -113,10 +117,17 @@ export function TutorialEditor({
         <fieldset className="tutorial-step-editor" key={index}>
           <legend>步骤 {index + 1}</legend>
           <div className="tutorial-step-actions">
-            <span>{step.mediaUrl ? "已添加素材" : "可上传截图或视频"}</span>
-            <button className="danger-button" type="button" onClick={() => removeStep(index)}>
-              删除步骤
-            </button>
+            <span>{step.mediaUrl ? "已添加教程素材，可替换或清空" : "可上传截图或视频"}</span>
+            <div className="tutorial-step-buttons">
+              {step.mediaUrl ? (
+                <button className="secondary-button compact-button" type="button" onClick={() => clearMedia(index)}>
+                  清空素材
+                </button>
+              ) : null}
+              <button className="danger-button" type="button" onClick={() => removeStep(index)}>
+                删除步骤
+              </button>
+            </div>
           </div>
           <div className="form-grid">
             <label>
@@ -176,6 +187,9 @@ export function TutorialEditor({
               />
             </label>
           </div>
+          {step.mediaUrl ? (
+            <p className="tutorial-hint">重新选择文件会替换当前素材链接；清空素材不会删除步骤文字。</p>
+          ) : null}
           {uploadingIndex === index ? (
             <p className="tutorial-uploading">正在上传教程素材...</p>
           ) : null}
