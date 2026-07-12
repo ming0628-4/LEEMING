@@ -134,3 +134,16 @@ test("archive, resource cards, item detail, and footer keep readable Chinese cop
   assert.match(await read("app/item/[slug]/page.tsx"), /获取资源/);
   assert.match(await read("app/layout.tsx"), /管理入口/);
 });
+
+test("resource delete cleans primary R2 object and file APIs keep readable copy", async () => {
+  const resourceRoute = await read("app/api/resources/[id]/route.ts");
+  assert.match(resourceRoute, /env\.ARCHIVE\.delete/);
+  assert.match(resourceRoute, /deletedObjectKey/);
+  assert.match(resourceRoute, /资源不存在/);
+
+  for (const file of ["app/api/files/route.ts", "app/api/files/[...key]/route.ts"]) {
+    const source = await read(file);
+    assert.match(source, /LEEMING 管理员/);
+    assert.doesNotMatch(source, /[�锛鍒犵绠璧鎼]/);
+  }
+});

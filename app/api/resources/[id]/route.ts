@@ -1,3 +1,4 @@
+import { env } from "cloudflare:workers";
 import { eq, sql } from "drizzle-orm";
 import { getLeemingAdmin } from "@/app/admin-auth";
 import { ensureResourcesTable, getDb } from "@/db";
@@ -21,6 +22,10 @@ function cleanTutorial(value: unknown) {
       return { title, description, mediaType, mediaUrl };
     })
     .filter((step) => step.title || step.description || step.mediaUrl);
+}
+
+function isResourceObjectKey(value: string | null) {
+  return Boolean(value?.startsWith("resources/"));
 }
 
 export async function GET(_: Request, { params }: { params: Promise<{ id: string }> }) {
@@ -88,5 +93,11 @@ export async function DELETE(_: Request, { params }: { params: Promise<{ id: str
     .where(eq(resources.id, Number((await params).id)))
     .returning();
 
-  return row ? Response.json({ ok: true }) : Response.json({ error: "资源不存在" }, { status: 404 });
+  if (!row) return Response.json({ error: "资源不存在" }, { status: 404 });
+
+  if (isResourceObjectKey(row.objectKey)) {
+    await env.ARCHIVE.delete(row.objectKey!);
+  }
+
+  return Response.json({ ok: true, deletedObjectKey: row.objectKey ?? null });
 }
