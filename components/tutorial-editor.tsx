@@ -53,6 +53,17 @@ export function TutorialEditor({
     setSteps((current) => current.filter((_, stepIndex) => stepIndex !== index));
   }
 
+  function moveStep(index: number, direction: -1 | 1) {
+    setSteps((current) => {
+      const targetIndex = index + direction;
+      if (targetIndex < 0 || targetIndex >= current.length) return current;
+
+      const next = [...current];
+      [next[index], next[targetIndex]] = [next[targetIndex], next[index]];
+      return next;
+    });
+  }
+
   function updateStep(index: number, patch: Partial<TutorialStepInput>) {
     setSteps((current) =>
       current.map((step, stepIndex) =>
@@ -119,6 +130,22 @@ export function TutorialEditor({
           <div className="tutorial-step-actions">
             <span>{step.mediaUrl ? "已添加教程素材，可替换或清空" : "可上传截图或视频"}</span>
             <div className="tutorial-step-buttons">
+              <button
+                className="secondary-button compact-button"
+                type="button"
+                onClick={() => moveStep(index, -1)}
+                disabled={index === 0}
+              >
+                上移
+              </button>
+              <button
+                className="secondary-button compact-button"
+                type="button"
+                onClick={() => moveStep(index, 1)}
+                disabled={index === steps.length - 1}
+              >
+                下移
+              </button>
               {step.mediaUrl ? (
                 <button className="secondary-button compact-button" type="button" onClick={() => clearMedia(index)}>
                   清空素材

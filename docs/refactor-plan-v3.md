@@ -133,6 +133,15 @@ Impact: `components/admin-manager.tsx`, `app/globals.css`.
 
 Impact: `components/upload-form.tsx`, `components/edit-resource-form.tsx`, `app/globals.css`.
 
+# 2026-07-13 Tutorial Step Ordering
+
+- [in-progress] Add admin controls for moving tutorial steps up and down.
+- [in-progress] Keep the existing form data model unchanged so uploads, edits, and imports remain compatible.
+- [in-progress] Add regression coverage for the tutorial ordering UI.
+- [in-progress] Validate tests, commit, push, and publish the updated site.
+
+Impact: `components/tutorial-editor.tsx`, `tests/architecture.test.mjs`.
+
 # 2026-07-13 Tutorial Media Cleanup
 
 - [done] Delete internal tutorial screenshots/videos from R2 when an admin deletes a resource.

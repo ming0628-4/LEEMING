@@ -114,6 +114,15 @@ test("tutorial editor supports readable media replacement flow", async () => {
   assert.doesNotMatch(source, /[�锛鍒犵绠璧鎼]/);
 });
 
+test("tutorial editor supports step ordering without changing the form contract", async () => {
+  const source = await read("components/tutorial-editor.tsx");
+  assert.match(source, /function moveStep/);
+  assert.match(source, /上移/);
+  assert.match(source, /下移/);
+  assert.match(source, /name="tutorialTitle"/);
+  assert.match(source, /name="tutorialMediaUrl"/);
+});
+
 test("public home, navigation, and resource forms keep readable Chinese copy", async () => {
   for (const file of [
     "app/page.tsx",
